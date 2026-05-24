@@ -1,0 +1,124 @@
+@startuml
+
+skinparam backgroundColor #0f172a
+skinparam defaultFontColor #e5e7eb
+skinparam defaultFontName "Consolas"
+skinparam ArrowColor #94a3b8
+skinparam ArrowThickness 2
+
+skinparam class {
+    BackgroundColor #1e293b
+    BorderColor #334155
+    FontColor #e5e7eb
+}
+
+skinparam package {
+    BackgroundColor #111827
+    BorderColor #475569
+}
+
+hide circle
+hide empty members
+
+class Person {
+    - _name : str
+    - _age : int
+    + name : str
+    + age : int
+}
+
+abstract class Techie {
+    - _intelligence : int
+    + intelligence : int
+    {abstract} + think_critically() : void
+}
+
+abstract class Humanitarian {
+    - empathy_level : int
+    - creativity : int
+    {abstract} + communicate() : void
+    + dream() : void
+    + __str__() : str
+    + __lt__(other : Humanitarian) : bool
+}
+
+class Programmer {
+    - _skill : float
+    - status : str
+    - github : str
+    + skill : float
+    + think_critically() : void
+    + commit() : void
+}
+
+class Engineer {
+    - experience : int
+    - field : str
+    - projects : int
+    + think_critically() : void
+    + build() : void
+    + destroy() : void
+    + __len__() : int
+}
+
+class Mathematician {
+    - research_area : str
+    + think_critically() : void
+    + publish_paper() : void
+    + __add__(other : Techie) : float
+}
+
+class Teacher {
+    - subject : str
+    + communicate() : void
+    + dream() : void
+    + think() : void
+    + attend_exhibition() : void
+}
+
+class Psychologist {
+    - specialty : str
+    + communicate() : void
+    + dream() : void
+    + think() : void
+    + attend_exhibition() : void
+}
+
+class ArtCritic {
+    - art_style : str
+    + communicate() : void
+    + dream() : void
+    + think() : void
+    + attend_exhibition() : void
+}
+
+Person <|-- Techie
+Person <|-- Humanitarian
+
+Techie <|-- Programmer
+Techie <|-- Engineer
+Techie <|-- Mathematician
+
+Humanitarian <|-- Teacher
+Humanitarian <|-- Psychologist
+Humanitarian <|-- ArtCritic
+
+package "Custom Exceptions" #1e293b {
+    class MyError {
+        + message : str
+    }
+
+    class TooLongNameError
+    class NotIsAlphaNameError
+    class InvalidAgeError
+    class InvalidStatusError
+    class InvalidSkillValueError
+
+    MyError <|-- TooLongNameError
+    MyError <|-- NotIsAlphaNameError
+    MyError <|-- InvalidAgeError
+    MyError <|-- InvalidStatusError
+    MyError <|-- InvalidSkillValueError
+}
+
+@enduml

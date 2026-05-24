@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if product %}Редактировать{% else %}Добавить{% endif %} | Магазин вкусняшек
+{% endblock %}
+
+{% block content %}
+<section class="form-page">
+    <h1>{% if product %}Редактировать товар{% else %}Добавить товар{% endif %}</h1>
+
+    <form class="product-form" method="post">
+        <label>
+            Название
+            <input
+                type="text"
+                name="name"
+                value="{{ request.form.name or product.name if product else request.form.name }}"
+                required
+                minlength="2"
+            >
+        </label>
+
+        <label>
+            Цена
+            <input
+                type="number"
+                name="price"
+                min="0"
+                step="0.01"
+                value="{{ request.form.price or product.price if product else request.form.price }}"
+                required
+            >
+        </label>
+
+        <label>
+            Количество
+            <input
+                type="number"
+                name="stock"
+                min="0"
+                step="1"
+                value="{{ request.form.stock or product.stock if product else request.form.stock }}"
+                required
+            >
+        </label>
+
+        <label>
+            Категория
+            <select name="category_id">
+                <option value="">Без категории</option>
+                {% for category in categories %}
+                    {% set current_category = request.form.category_id|int if request.form.category_id else product.category_id if product else none %}
+                    <option value="{{ category.id }}" {% if current_category == category.id %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Новая категория
+            <input type="text" name="new_category" value="{{ request.form.new_category }}" placeholder="Например: Шоколад">
+        </label>
+
+        <button type="submit">{% if product %}Сохранить{% else %}Добавить{% endif %}</button>
+    </form>
+</section>
+{% endblock %}

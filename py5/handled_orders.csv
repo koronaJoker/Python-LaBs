@@ -1,0 +1,9 @@
+id,name,product,price,weight,count,discount,distance,category,order_date,returned,amount,total,success,aprx_time,permutations
+1,Иван,banana,30,0.2,1000,0,12,fruit,2026-05-01,False,30000,31000.0,True,5.0,24
+2,Анна,coffee,20,0.08,500,5,25,drink,2026-05-02,False,10000,10325.0,True,2.4,24
+3,Максим,chocolate,15,0.1,354,12,7,sweets,2026-05-03,False,5310,5571.0,True,8.571428571428571,720
+5,Неизвестно,bread,11,0.4,11,11,5,unknown,2026-05-05,False,121,198.0,True,12.0,3628800
+6,Дмитрий,apple,12,0.2,500,0,14,fruit,2026-05-06,False,6000,6500.0,False,4.285714285714286,5040
+7,Ольга,banana,18,0.25,300,5,20,fruit,2026-05-07,True,5400,5875.0,False,3.0,120
+8,Сергей,pear,15,0.2,250,0,9,fruit,2026-05-08,True,3750,4000.0,False,6.666666666666667,720
+9,Мария,grape,25,0.5,200,10,30,fruit,2026-05-09,False,5000,5800.0,True,2.0,120

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Вход | Магазин вкусняшек{% endblock %}
+
+{% block content %}
+<section class="form-page">
+    <h1>Вход</h1>
+    <form class="product-form" method="post" action="{{ url_for('auth.login') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <label>
+            Имя пользователя
+            <input type="text" name="username" required minlength="3" autofocus>
+        </label>
+        <label>
+            Пароль
+            <input type="password" name="password" required minlength="6">
+        </label>
+        <button type="submit">Войти</button>
+        <p class="form-note">Нет аккаунта? <a href="{{ url_for('auth.register') }}">Зарегистрироваться</a></p>
+    </form>
+</section>
+{% endblock %}

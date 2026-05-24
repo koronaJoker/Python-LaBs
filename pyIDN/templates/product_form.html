@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}{% if product %}Редактировать{% else %}Добавить{% endif %} | Магазин вкусняшек{% endblock %}
+
+{% block content %}
+<section class="form-page">
+    <h1>{% if product %}Редактировать товар{% else %}Добавить товар{% endif %}</h1>
+
+    <form class="product-form" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <label>
+            Название
+            <input
+                type="text"
+                name="name"
+                value="{{ form_data.name }}"
+                required
+                minlength="2"
+            >
+        </label>
+
+        <label>
+            Цена
+            <input
+                type="number"
+                name="price"
+                min="0"
+                step="0.01"
+                value="{{ form_data.price }}"
+                required
+            >
+        </label>
+
+        <label>
+            Количество
+            <input
+                type="number"
+                name="stock"
+                min="0"
+                step="1"
+                value="{{ form_data.stock }}"
+                required
+            >
+        </label>
+
+        <label>
+            Категория
+            <select name="category_id">
+                <option value="">Без категории</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if form_data.category_id|int == category.id %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>
+            Новая категория
+            <input type="text" name="new_category" value="{{ form_data.new_category }}" placeholder="Например: Шоколад">
+        </label>
+
+        <button type="submit">{% if product %}Сохранить{% else %}Добавить{% endif %}</button>
+    </form>
+</section>
+{% endblock %}

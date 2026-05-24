@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Корзина | Магазин вкусняшек{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div>
+        <h1>Корзина</h1>
+        <p>Проверьте товары перед оформлением заказа.</p>
+    </div>
+</section>
+
+{% if cart_items %}
+    <div class="table-section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Сумма</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ "%.2f"|format(item.product.price) }} лей</td>
+                        <td>
+                            <form class="cart-update" method="post" action="{{ url_for('cart.update_cart') }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                <input type="number" name="quantity" min="0" value="{{ item.quantity }}">
+                                <button type="submit">Обновить</button>
+                            </form>
+                        </td>
+                        <td>{{ "%.2f"|format(item.subtotal) }} лей</td>
+                        <td>
+                            <form method="post" action="{{ url_for('cart.remove_from_cart', product_id=item.product.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                <button class="danger" type="submit">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="cart-total">
+            <strong>Общая сумма: {{ "%.2f"|format(total) }} лей</strong>
+            <form method="post" action="{{ url_for('cart.checkout') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <button class="button" type="submit">Оформить заказ</button>
+            </form>
+        </div>
+    </div>
+{% else %}
+    <section class="empty">
+        <h2>Корзина пуста</h2>
+        <p>Добавьте товары из каталога.</p>
+        <a class="button" href="{{ url_for('products.products') }}">Вернуться к товарам</a>
+    </section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Главная | Магазин вкусняшек{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-text">
+        <h1>Добро пожаловать в Вкусняшку</h1>
+        <p>
+            Удобный каталог товаров с управлением, поиском и корзиной. Добавляйте сладости, напитки и свежую выпечку, сохраняйте покупки и оформляйте заказ.
+        </p>
+        <div class="hero-actions">
+            <a class="button" href="{{ url_for('products.products') }}"><svg class="icon"><use href="#icon-box"></use></svg>Открыть товары</a>
+            {% if current_user and current_user.role == 'admin' %}
+                <a class="button secondary" href="{{ url_for('products.add_product') }}"><svg class="icon"><use href="#icon-plus"></use></svg>Добавить товар</a>
+            {% endif %}
+        </div>
+    </div>
+    <img src="{{ url_for('static', filename='images/main.png') }}" alt="Витрина сладостей">
+</section>
+{% endblock %}

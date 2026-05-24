@@ -1,0 +1,6 @@
+﻿order_id,product,category,price,quantity,discount,status,order_date,distance_km,total_price,final_price,is_successful
+1,Mouse,Electronics,25,2,0.1,Delivered,2025-04-01,12,50,45.0,True
+2,Keyboard,Electronics,50,1,0.05,Returned,2025-04-02,8,50,47.5,False
+3,T-shirt,Clothes,30,3,0.2,Completed,2025-04-03,15,90,72.0,True
+4,Book,Books,20,4,0.0,Delivered,2025-04-04,5,80,80.0,True
+5,Headphones,Electronics,80,1,0.15,Success,2025-04-05,20,80,68.0,True

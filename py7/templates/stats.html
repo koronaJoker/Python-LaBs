@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Статистика | Магазин вкусняшек{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div>
+        <h1>Статистика</h1>
+        <p>Аналитика по товарам и категориям.</p>
+    </div>
+</section>
+
+<div class="stats-grid">
+    <article class="stat">
+        <span>Всего товаров</span>
+        <strong>{{ summary.total_products }}</strong>
+    </article>
+    <article class="stat">
+        <span>Единиц на складе</span>
+        <strong>{{ summary.total_stock }}</strong>
+    </article>
+    <article class="stat">
+        <span>Средняя цена</span>
+        <strong>{{ "%.2f"|format(summary.avg_price) }}</strong>
+    </article>
+    <article class="stat">
+        <span>Стоимость склада</span>
+        <strong>{{ "%.2f"|format(summary.inventory_value) }}</strong>
+    </article>
+</div>
+
+<section class="table-section">
+    <h2>Товары по категориям</h2>
+    {% if by_category %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Категория</th>
+                    <th>Товаров</th>
+                    <th>Остаток</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in by_category %}
+                    <tr>
+                        <td>{{ row.category_name }}</td>
+                        <td>{{ row.product_count }}</td>
+                        <td>{{ row.stock_count }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нет данных для анализа.</p>
+    {% endif %}
+</section>
+{% endblock %}

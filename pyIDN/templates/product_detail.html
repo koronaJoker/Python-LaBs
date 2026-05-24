@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} | Магазин вкусняшек{% endblock %}
+
+{% block content %}
+<section class="detail">
+    <div class="detail-main">
+        <p class="category">{{ product.category_name or "Без категории" }}</p>
+        <h1>{{ product.name }}</h1>
+        <p class="price">{{ "%.2f"|format(product.price) }} лей</p>
+    </div>
+
+    <dl class="info-list">
+        <div>
+            <dt>ID</dt>
+            <dd>{{ product.id }}</dd>
+        </div>
+        <div>
+            <dt>Количество на складе</dt>
+            <dd>{{ product.stock }} шт.</dd>
+        </div>
+        <div>
+            <dt>Дата добавления</dt>
+            <dd>{{ product.created_at }}</dd>
+        </div>
+    </dl>
+
+    <form class="product-form" method="post" action="{{ url_for('cart.add_to_cart', product_id=product.id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <label>
+            Количество
+            <input type="number" name="quantity" min="1" max="{{ product.stock }}" value="1" {% if product.stock == 0 %}disabled{% endif %}>
+        </label>
+        <button class="button" type="submit" {% if product.stock == 0 %}disabled{% endif %}>Добавить в корзину</button>
+    </form>
+
+    {% if current_user and current_user.role == 'admin' %}
+        <div class="actions">
+            <a class="button" href="{{ url_for('products.edit_product', product_id=product.id) }}">Редактировать</a>
+            <form method="post" action="{{ url_for('products.delete_product_route', product_id=product.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <button class="danger" type="submit">Удалить</button>
+            </form>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

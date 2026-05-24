@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Товары | Магазин вкусняшек{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div>
+        <h1>Товары</h1>
+        <p>Список всех записей из таблицы products.</p>
+    </div>
+    <a class="button" href="{{ url_for('add_product') }}"><svg class="icon"><use href="#icon-plus"></use></svg>Добавить</a>
+</section>
+
+<form class="filters" method="get">
+    <label>
+        Категория
+        <select name="category_id">
+            <option value="">Все категории</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>
+        Сортировка
+        <select name="sort">
+            <option value="new" {% if sort == "new" %}selected{% endif %}>Сначала новые</option>
+            <option value="name" {% if sort == "name" %}selected{% endif %}>По названию</option>
+            <option value="price_asc" {% if sort == "price_asc" %}selected{% endif %}>Цена по возрастанию</option>
+            <option value="price_desc" {% if sort == "price_desc" %}selected{% endif %}>Цена по убыванию</option>
+            <option value="stock" {% if sort == "stock" %}selected{% endif %}>Больше на складе</option>
+        </select>
+    </label>
+    <button type="submit">Применить</button>
+</form>
+
+{% if products %}
+    <div class="product-grid">
+        {% for product in products %}
+            <article class="card">
+                <div>
+                    <p class="category">{{ product.category_name or "Без категории" }}</p>
+                    <h2>{{ product.name }}</h2>
+                </div>
+                <dl>
+                    <div>
+                        <dt>Цена</dt>
+                        <dd>{{ "%.2f"|format(product.price) }} лей</dd>
+                    </div>
+                    <div>
+                        <dt>Остаток</dt>
+                        <dd>{{ product.stock }} шт.</dd>
+                    </div>
+                </dl>
+                <a class="text-link" href="{{ url_for('product_detail', product_id=product.id) }}">Подробнее</a>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <section class="empty">
+        <h2>Товаров пока нет</h2>
+        <p>Добавьте первую запись через форму.</p>
+    </section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Главная | Магазин вкусняшек{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-text">
+        <h1>Магазин вкусняшек</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto saepe vel dignissimos aut, similique iste totam ducimus dolorem molestias placeat eos beatae, repudiandae quo mollitia esse tempore omnis cum? Dignissimos?
+        </p>
+        <div class="hero-actions">
+            <a class="button" href="{{ url_for('products') }}"><svg class="icon"><use href="#icon-box"></use></svg>Открыть товары</a>
+            <a class="button secondary" href="{{ url_for('add_product') }}"><svg class="icon"><use href="#icon-plus"></use></svg>Добавить товар</a>
+        </div>
+    </div>
+    <img src="{{ url_for('static', filename='images/main.png') }}" alt="Витрина сладостей">
+</section>
+{% endblock %}
